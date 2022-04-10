@@ -18,8 +18,9 @@
 
 3. Activate the virtual environment
 
-   ``` 
+   ``` shell
    python3 -m pipenv shell
+   ```
 
 4. Run the development server
 
