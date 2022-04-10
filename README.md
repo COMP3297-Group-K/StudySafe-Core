@@ -4,7 +4,7 @@
 | --------------------------- | ------------------ | ---------|
 | StudySafe                   | StudySafe/config   | StudySafe/Core<br>StudySafe/Trace (not added yet) |
 
-1. After `git clone <URL>`, create virtual environment at the repository root <br>(shell commands on **MacOS**, replace `python3` with `py` on **Windows**),
+1. After `git clone <URL>`, create virtual environment at the repository root, <br>(shell commands on **MacOS**, replace `python3` with `py` on **Windows**)
 
    ```shell
    python3 -m pipenv --three
