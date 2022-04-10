@@ -4,6 +4,9 @@ from django.db import models
 class TaskForceMember(models.Model):
     username = models.CharField(max_length = 16)
     password = models.CharField(max_length = 16)
+    first_name = models.CharField(max_length = 32)
+    last_name = models.CharField(max_length = 32)
+    email = models.CharField(max_length = 32)
     def __str__(self):
         return self.username
 
