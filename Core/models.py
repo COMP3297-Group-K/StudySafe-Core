@@ -11,8 +11,8 @@ class TaskForceMember(models.Model):
         return self.username
 
 class Venue(models.Model):
-    venue_code = models.CharField(max_length = 32)
-    location = models.CharField(max_length = 256)
+    venue_code = models.CharField(max_length = 20)
+    location = models.CharField(max_length = 150)
     type = models.CharField(max_length = 8)
     capacity = models.IntegerField()
     def __str__(self):
@@ -26,11 +26,11 @@ class Device(models.Model):
         return f'{self.username} at {self.Venue.venue_code}'
 
 class HKUMember(models.Model):
-    hkuID = models.IntegerField()
-    name = models.CharField(max_length = 16)
+    hkuID = models.CharField(max_length = 10)
+    name = models.CharField(max_length = 150)
     Venue = models.ManyToManyField(Venue, through='ExitEntryRecord')
     def __str__(self):
-        return str(self.hkuID)
+        return f'{self.hkuID} {self.name}'
 
 class ExitEntryRecord(models.Model):
     date = models.DateField() #https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.DateField
