@@ -40,6 +40,6 @@ class Contactmembers(ReadOnlyModelViewSet):
                 close_contact_bool = ((exittime-potential_close_contact_access["entry_time"]>=timedelta(minutes = 30))| (potential_close_contact_access["exit_time"]-entertime>=timedelta(minutes = 30)))
                 if(close_contact_bool):
                     close_contact_members = close_contact_members.union(HKUMember.objects.filter(id = potential_close_contact_access['HKUMember_id']))
-        close_contact_members = close_contact_members.order_by('hkuID').distinct()
+        close_contact_members = close_contact_members.order_by('hkuID')
         serializer = ContactSerializer(close_contact_members, many=True)
         return Response(serializer.data)

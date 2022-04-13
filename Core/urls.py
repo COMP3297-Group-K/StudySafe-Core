@@ -1,6 +1,5 @@
 from django.db import router
 from django.urls import path, include
-from Core import views
 from rest_framework.routers import DefaultRouter
 from .api_views import *
 
