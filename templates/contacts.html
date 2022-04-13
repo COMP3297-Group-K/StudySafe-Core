@@ -48,8 +48,8 @@
       <div class="label">Close contacts during infectious period:</div>
       <div class="data">
         <ul>
-          {% for contact in contacts %}
-            <li>{{ contact }}</li>
+          {% for contact in data %}
+            <li>{{ contact.name }}</li>
           {% endfor %}
         </ul>
       </div>
