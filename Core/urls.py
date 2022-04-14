@@ -10,7 +10,7 @@ router.register(r'exitentry/(?P<member_id>[^/.]+)/(?P<venue_name>[^/]+)', Update
 
 #e.g. http://127.0.0.1:8000/Core/contacts/3030012345/20220411/
 #e.g. http://127.0.0.1:8000/Core/venues/3030012345/20220411/
-#e.g. http://127.0.0.1:8000/Core/exitentry/3030012345/CPD-LG.02/20220105-09:15:32/
+#e.g. http://127.0.0.1:8000/Core/exitentry/3030012345/CPD-LG.02/20220106-09:15:32/
 #All use GET method
 #for Core/exitentry/... : Returns 'Entered' or 'Exited' 
 
