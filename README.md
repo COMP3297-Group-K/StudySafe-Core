@@ -43,4 +43,4 @@
  - visit http://localhost:8000/Trace/contacts to view the whole list of all close contacts
  - visit http://localhost:8000/Trace/venues to view the whole list of all venues visited by the infectious two days before onset/diagnosis
  - visit http://localhost:8000/Trace/contacts/hkuID to view the whole list of close contacts of `hkuID`
- - visit http://localhost:8000/Trace/venues to view the whole list of all venues visited by `hkuID` two days before onset/diagnosis
+ - visit http://localhost:8000/Trace/venues/hkuID to view the whole list of all venues visited by `hkuID` two days before onset/diagnosis
