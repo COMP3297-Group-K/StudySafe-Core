@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel='stylesheet' href='test.css'> -->
+    <title>StudySafe Trace</title>
+    <style>
+        :root {
+            --header-bg-color: darkgrey;
+            --header-border-color: grey;
+            --block-bg-color: lightgrey;
+            --block-border-color: grey;
+        }
+
+        body {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        header {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: var(--header-bg-color);
+            border: 0.1em solid var(--header-border-color);
+            box-shadow: 0.1em 0.1em 0.2em var(--block-border-color);
+            width: 100%;
+            max-width: 40em;
+        }
+
+        .main-content {
+            padding: 1.4em;
+            width: 100%;
+            max-width: 38em;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Infected Members</h1>
+    </header>
+    <div class="main-content">
+        <div class="info">
+            {% for infected in data %}
+            <li class="data">
+                {{infected.hkuID}} &nbsp; {{infected.date}} &nbsp;
+                <a href={{infected.venues}}> Vuenues </a> &nbsp;
+                <a href={{infected.contacts}}> Contacts </a>
+            </li>
+            {% endfor %}
+        </div>
+    </div> </body>
+</html>
