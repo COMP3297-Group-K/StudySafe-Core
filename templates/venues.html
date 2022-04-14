@@ -24,8 +24,8 @@
       <div class="label">Venues visited during infectious period:</div>
       <div class="data">
         <ul>
-          {% for venue in venues %}
-            <li>{{ venue }}</li>
+          {% for venue in data %}
+            <li>{{ venue.venue_code }}</li>
           {% endfor %}
         </ul>
       </div>
