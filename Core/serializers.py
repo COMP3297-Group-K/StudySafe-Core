@@ -1,3 +1,4 @@
+from pyexpat import model
 from rest_framework import serializers
 from .models import *
 
@@ -12,3 +13,4 @@ class VenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venue
         fields = ['venue_code']
+
