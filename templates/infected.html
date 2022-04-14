@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel='stylesheet' href='test.css'> -->
-    <title>StudySafe Trace</title>
+    <title>{% block title %}StudySafe Trace{% endblock %}</title>
+    {% block csstheme %}
     <style>
         :root {
             --header-bg-color: darkgrey;
@@ -12,14 +13,15 @@
             --block-bg-color: lightgrey;
             --block-border-color: grey;
         }
-
+    </style>
+    {% endblock %}
+    <style>
         body {
             display: flex;
             flex-flow: column nowrap;
             justify-content: flex-start;
             align-items: center;
         }
-
         header {
             display: flex;
             flex-flow: column nowrap;
@@ -31,7 +33,6 @@
             width: 100%;
             max-width: 40em;
         }
-
         .main-content {
             padding: 1.4em;
             width: 100%;
@@ -41,13 +42,47 @@
             justify-content: flex-start;
             align-items: stretch;
         }
+        div.info {
+            margin: 0.3em;
+            padding: 0.5em;
+            font-size: 1em;
+        }
+        div.label {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        li.data {
+            margin: 0.3em;
+        }
+        div.subject {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: stretch;
+            padding: 0.3em;
+            width: 100%;
+            max-width: 41em;     
+        }
+        div.block {
+            flex-basis: 50%;
+            background-color: var(--block-bg-color);
+            border: 0.1em solid var(--block-border-color);
+            box-shadow: 0.1em 0.1em 0.2em var(--block-border-color);
+            margin: 0.3em;
+            padding: 0.5em;
+        }
     </style>
   </head>
   <body>
+    {% block header %}
     <header>
       <h1>Infected Members</h1>
     </header>
+    {% endblock %}
+    {% block content %}
     <div class="main-content">
+        {% block details %}
+        <div class="label"> Infected members and the report date </div>
         <div class="info">
             {% for infected in data %}
             <li class="data">
@@ -57,5 +92,12 @@
             </li>
             {% endfor %}
         </div>
-    </div> </body>
+        <div class="foot">
+            <a href="http://localhost:8000/Trace/venues"> Full list of venues </a> <br>
+            <a href="http://localhost:8000/Trace/contacts"> Full list of close contacts </a> &nbsp; 
+        </div>
+        {% endblock %}
+    </div> 
+    {% endblock %}
+  </body>
 </html>

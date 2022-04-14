@@ -50,21 +50,21 @@ class View(TemplateView):
 
 
 class ViewVenuesAll(View):
-    template_name = "venues.html"
+    template_name = "VenuesAll.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'venues/'
 
 
 class ViewContactsAll(View):
-    template_name = "contacts.html"
+    template_name = "ContactsAll.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'contacts/'
 
 
 class ViewVenues(View):
-    template_name = "venues.html"
+    template_name = "Venue.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'venues/'
@@ -83,7 +83,7 @@ class ViewVenues(View):
 
 
 class ViewContacts(ViewVenues):
-    template_name = "contacts.html"
+    template_name = "Contact.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'contacts/'
@@ -103,10 +103,11 @@ class ViewInfected(TemplateView):
     def get_data(self):
         data = []
         for infected in self.infected['infected']:
-            hkuID, date = infected['hkuID'], infected['date']
+            hkuID, date = infected['hkuID'], str(infected['date'])
+            date = date[0:4] + '-' + date[4:6] + '-' + date[6:8]
             venues = 'http://localhost:8000/Trace/venues/' + str(hkuID)
             contacts = 'http://localhost:8000/Trace/contacts/' + str(hkuID)
-            data += [{'hkuID': hkuID, 'date': date, 'venues':venues, 'contacts': contacts}]
+            data += [{'hkuID':hkuID, 'date':date, 'venues':venues, 'contacts':contacts}]
         self.data = data
 
     def get_context_data(self, **kwargs):
