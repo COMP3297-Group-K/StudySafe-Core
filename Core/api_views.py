@@ -19,7 +19,7 @@ class ContactVenue(ReadOnlyModelViewSet):
         serializer = VenueSerializer(visited_venue, many=True)
         return Response(serializer.data)
 
-class ContactMembers(ReadOnlyModelViewSet):
+class ContactMember(ReadOnlyModelViewSet):
     queryset = ExitEntryRecord.objects.all()
     serializer_class = ContactSerializer
 
@@ -67,4 +67,10 @@ class UpdateExitEntry(ModelViewSet):
             return HttpResponse("Exited")
 
         
-            
+class hkuMembersViewSet(ModelViewSet):
+    queryset = HKUMember.objects.all()
+    serializer_class = ContactSerializer
+
+class VenuesViewset(ModelViewSet):
+    queryset = Venue.objects.all()
+    serializer_class = VenuesSerializer

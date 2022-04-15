@@ -4,13 +4,15 @@ from rest_framework.routers import DefaultRouter
 from .api_views import *
 
 router = DefaultRouter()
-router.register(r'contacts/(?P<member_id>[^/.]+)', ContactMembers)
-router.register(r'venues/(?P<member_id>[^/.]+)', ContactVenue)
-router.register(r'exitentry/(?P<member_id>[^/.]+)/(?P<venue_name>[^/]+)', UpdateExitEntry)
+router.register(r'ContactMember/(?P<member_id>[^/.]+)', ContactMember)
+router.register(r'ContactVenue/(?P<member_id>[^/.]+)', ContactVenue)
+router.register(r'ExitEntry/(?P<member_id>[^/.]+)/(?P<venue_name>[^/]+)', UpdateExitEntry)
+router.register(r'members', hkuMembersViewSet)
+router.register(r'venues', VenuesViewset)
 
-#e.g. http://127.0.0.1:8000/Core/contacts/3030012345/20220411/
-#e.g. http://127.0.0.1:8000/Core/venues/3030012345/20220411/
-#e.g. http://127.0.0.1:8000/Core/exitentry/3030012345/CPD-LG.02/20220106-09:15:32/
+#e.g. http://127.0.0.1:8000/Core/ContactMember/3030012345/20220411/
+#e.g. http://127.0.0.1:8000/Core/ContactVenue/3030012345/20220411/
+#e.g. http://127.0.0.1:8000/Core/ExitEntry/3030012345/CPD-LG.02/20220106-09:15:32/
 #All use GET method
 #for Core/exitentry/... : Returns 'Entered' or 'Exited' 
 

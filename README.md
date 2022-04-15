@@ -1,8 +1,8 @@
 # StudySafe
 
-| Repository and project root | Configuration root | App root |
-| --------------------------- | ------------------ | ---------|
-| StudySafe                   | StudySafe/config   | StudySafe/Core<br>StudySafe/Trace (not added yet) |
+| Repository and project root | Configuration root | App root                          |
+| --------------------------- | ------------------ | --------------------------------- |
+| StudySafe                   | StudySafe/config   | StudySafe/Core<br>StudySafe/Trace |
 
 ## Run the server
 
@@ -32,15 +32,40 @@
 
    visit http://127.0.0.1:8000/admin as superuser (Username: `adminse`, Password: `comp3297`)
 
-## Visit StudySafe Core
+## StudySafe Core (API)
 
- - http://127.0.0.1:8000/Core/contacts/3030012345/20220411/
- - http://127.0.0.1:8000/Core/venues/3030012345/20220411/
- - http://127.0.0.1:8000/Core/exitentry/3030012345/CPD-LG.02/20220106-09:15:32/
+General purpose APIs:
 
-## Visit StudySafe Trace
- - visit http://localhost:8000/Trace/infected to view the whole list of all infected members
- - visit http://localhost:8000/Trace/contacts to view the whole list of all close contacts
- - visit http://localhost:8000/Trace/venues to view the whole list of all venues visited by the infectious two days before onset/diagnosis
- - visit http://localhost:8000/Trace/contacts/hkuID to view the whole list of close contacts of `hkuID`
- - visit http://localhost:8000/Trace/venues/hkuID to view the whole list of all venues visited by `hkuID` two days before onset/diagnosis
+ - list all the campus venues
+   - visit http://127.0.0.1:8000/Core/venues
+
+ - retrieve campus venue `pk`
+   - [http://127.0.0.1:8000/Core/venues/<pk\>](), e.g. http://127.0.0.1:8000/Core/venues/1
+
+ - list all the HKU members
+   - visit http://127.0.0.1:8000/Core/members/
+
+ - retrieve HKU memebr `pk`
+   - [http://127.0.0.1:8000/Core/members/<pk\>](), e.g. http://127.0.0.1:8000/Core/members/1
+
+
+APIs associated with StudySafe Trace:
+
+ - retrieve the close contacts of `hkuID` whose onset/diagnose data is `date` (YYYYMMDD)
+   - visit [http://127.0.0.1:8000/Core/ContactMember/<hkuID\>/<date\>/](), e.g. http://127.0.0.1:8000/Core/ContactMember/3030012345/20220411/
+ - retrieve the venues visited by `hkuID` whose onset/diagnose data is `date` (YYYYMMDD)
+   - [http://127.0.0.1:8000/Core/ContactVenue/<hkuID\>/<date\>/](), e.g. http://127.0.0.1:8000/Core/ContactVenue/3030012345/20220411/
+ - add exit/entry record of `hkuID` to `venue` at `datetime` (YYYMMDD-HH:MM:SS)
+   - [http://127.0.0.1:8000/Core/ExitEntry/<hkuID\>/<venue\>/<datetime\>/](), e.g. http://127.0.0.1:8000/Core/ExitEntry/3030012345/CPD-LG.02/20220106-09:15:32/
+
+## StudySafe Trace
+ - view the whole list of all infected members
+   - visit http://localhost:8000/Trace/infected
+ - view the whole list of all close contacts
+   - visit http://localhost:8000/Trace/contacts
+ - view the whole list of all venues visited by the infectious two days before onset/diagnosis
+   - visit http://localhost:8000/Trace/venues
+ - view a list of `hkuID`'s close contacts
+   - visit [http://localhost:8000/Trace/contacts/<hkuID\>](), e.g. http://localhost:8000/Trace/contacts/3030012348
+ - view a list of venues visited by `hkuID` two days before onset/diagnosis
+   - visit [http://localhost:8000/Trace/venues/<hkuID\>](), e.g. http://localhost:8000/Trace/venues/3030012348
