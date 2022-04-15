@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.decorators import api_view
 from django.db.models import F
 from django.http import HttpResponse
 from .models import *
@@ -6,47 +7,42 @@ from .serializers import *
 from rest_framework.response import Response
 from datetime import date, timedelta, datetime
 
-class ContactVenue(ReadOnlyModelViewSet):
-    queryset = ExitEntryRecord.objects.all()
-    serializer_class = VenueSerializer
-
-    def retrieve(self, request, pk, **kwargs):
-        diagnosed_date = datetime.strptime(pk, "%Y%m%d")
-        visited_venue = Venue.objects.filter(exitentryrecord__date__range = [diagnosed_date-timedelta(days=2),diagnosed_date],\
-            exitentryrecord__HKUMember__hkuID=kwargs['member_id'])\
+@api_view(['GET',])
+def ContactVenue(request, member_id, date): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
+    diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
+    visited_venue = Venue.objects.filter(exitentryrecord__date__range = [diagnosed_date-timedelta(days=2),diagnosed_date],\
+            exitentryrecord__HKUMember__hkuID=member_id)\
             .order_by('venue_code')\
             .distinct()
-        serializer = VenueSerializer(visited_venue, many=True)
-        return Response(serializer.data)
+    serializer = VenueSerializer(visited_venue, many=True)
+    return Response(serializer.data)
 
-class ContactMember(ReadOnlyModelViewSet):
-    queryset = ExitEntryRecord.objects.all()
-    serializer_class = ContactSerializer
 
-    def retrieve(self, request, pk, **kwargs):
-        close_contact_members = HKUMember.objects.none()
-        diagnosed_date = datetime.strptime(pk, "%Y%m%d")
-        queryset = ExitEntryRecord.objects\
-            .filter(HKUMember__hkuID=kwargs['member_id']) \
-            .filter(date__range = [diagnosed_date-timedelta(days=2),diagnosed_date]).values()
+@api_view(['GET',])
+def ContactMember(request, member_id, date):
+    close_contact_members = HKUMember.objects.none()
+    diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
+    queryset = ExitEntryRecord.objects\
+        .filter(HKUMember__hkuID=member_id) \
+        .filter(date__range = [diagnosed_date-timedelta(days=2),diagnosed_date]).values()
 
-        for individual_access in queryset:
-            entertime = individual_access['entry_time']
-            exittime = individual_access['exit_time']
-            accessdate = individual_access['date']
-            venueid = individual_access['Venue_id']
-            potential_close_contact = ExitEntryRecord.objects\
-                .filter(date = accessdate, entry_time__lte = exittime, exit_time__gte = entertime, Venue_id = venueid)\
-                .exclude(HKUMember__hkuID=kwargs['member_id']).values()
-            for potential_close_contact_access in potential_close_contact:
-                close_contact_bool = ((exittime-potential_close_contact_access["entry_time"]>=timedelta(minutes = 30))| (potential_close_contact_access["exit_time"]-entertime>=timedelta(minutes = 30)))
-                if(close_contact_bool):
-                    close_contact_members = close_contact_members.union(HKUMember.objects.filter(id = potential_close_contact_access['HKUMember_id']))
-        close_contact_members = close_contact_members.order_by('hkuID')
-        serializer = ContactSerializer(close_contact_members, many=True)
-        return Response(serializer.data)
+    for individual_access in queryset:
+        entertime = individual_access['entry_time']
+        exittime = individual_access['exit_time']
+        accessdate = individual_access['date']
+        venueid = individual_access['Venue_id']
+        potential_close_contact = ExitEntryRecord.objects\
+            .filter(date = accessdate, entry_time__lte = exittime, exit_time__gte = entertime, Venue_id = venueid)\
+            .exclude(HKUMember__hkuID=member_id).values()
+        for potential_close_contact_access in potential_close_contact:
+            close_contact_bool = ((exittime-potential_close_contact_access["entry_time"]>=timedelta(minutes = 30))| (potential_close_contact_access["exit_time"]-entertime>=timedelta(minutes = 30)))
+            if(close_contact_bool):
+                close_contact_members = close_contact_members.union(HKUMember.objects.filter(hkuID = potential_close_contact_access['HKUMember_id']))
+    close_contact_members = close_contact_members.order_by('hkuID')
+    serializer = MemberSerializer(close_contact_members, many=True)
+    return Response(serializer.data)
 
-class UpdateExitEntry(ModelViewSet):
+class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
 
     def retrieve(self, request, pk, **kwargs):
@@ -60,17 +56,18 @@ class UpdateExitEntry(ModelViewSet):
             'HKUMember': HKUMember.objects.get(hkuID = member_id) }
         )
         if created:
-            return HttpResponse("Entered")
+            return HttpResponse("Entry record was recorded.")
         else:
             obj.exit_time = time
             obj.save()
-            return HttpResponse("Exited")
+            return HttpResponse("Exit record was recored.")
 
         
 class hkuMembersViewSet(ModelViewSet):
     queryset = HKUMember.objects.all()
-    serializer_class = ContactSerializer
+    serializer_class = MemberSerializer
 
 class VenuesViewset(ModelViewSet):
+    lookup_value_regex = '[\d\w\-\.]+'
     queryset = Venue.objects.all()
-    serializer_class = VenuesSerializer
+    serializer_class = VenueSerializer

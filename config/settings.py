@@ -28,11 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom users
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'Core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Trace.apps.TraceConfig',
-    'drf_yasg'
+    'drf_yasg',
+    'users',
+    'Core',
+    'Trace',
 ]
 
 MIDDLEWARE = [

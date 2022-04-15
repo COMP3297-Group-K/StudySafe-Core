@@ -9,7 +9,6 @@ tzdata = "*"
 djangorestframework = "*"
 requests = "*"
 drf-yasg = "*"
-httpie = "*"
 
 [dev-packages]
 
