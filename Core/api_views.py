@@ -1,4 +1,6 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from django.db.models import F
+from django.http import HttpResponse
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
@@ -17,7 +19,7 @@ class ContactVenue(ReadOnlyModelViewSet):
         serializer = VenueSerializer(visited_venue, many=True)
         return Response(serializer.data)
 
-class Contactmembers(ReadOnlyModelViewSet):
+class ContactMembers(ReadOnlyModelViewSet):
     queryset = ExitEntryRecord.objects.all()
     serializer_class = ContactSerializer
 
@@ -40,6 +42,29 @@ class Contactmembers(ReadOnlyModelViewSet):
                 close_contact_bool = ((exittime-potential_close_contact_access["entry_time"]>=timedelta(minutes = 30))| (potential_close_contact_access["exit_time"]-entertime>=timedelta(minutes = 30)))
                 if(close_contact_bool):
                     close_contact_members = close_contact_members.union(HKUMember.objects.filter(id = potential_close_contact_access['HKUMember_id']))
-        close_contact_members = close_contact_members.order_by('hkuID').distinct()
+        close_contact_members = close_contact_members.order_by('hkuID')
         serializer = ContactSerializer(close_contact_members, many=True)
         return Response(serializer.data)
+
+class UpdateExitEntry(ModelViewSet):
+    queryset = ExitEntryRecord.objects.all()
+
+    def retrieve(self, request, pk, **kwargs):
+        time = datetime.strptime(pk,"%Y%m%d-%H:%M:%S")
+        date = time.date()
+        member_id = kwargs['member_id']
+        venue_name = kwargs['venue_name']
+        obj, created = ExitEntryRecord.objects.get_or_create(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'),
+        defaults={'entry_time': time, 'exit_time': time,
+            'Venue': Venue.objects.get(venue_code = venue_name),
+            'HKUMember': HKUMember.objects.get(hkuID = member_id) }
+        )
+        if created:
+            return HttpResponse("Entered")
+        else:
+            obj.exit_time = time
+            obj.save()
+            return HttpResponse("Exited")
+
+        
+            

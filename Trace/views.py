@@ -50,35 +50,24 @@ class View(TemplateView):
 
 
 class ViewVenuesAll(View):
-    template_name = "venues.html"
+    template_name = "VenuesAll.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.error = 0
         self.head = 'venues/'
-        self.data = []
-        self.subject = 0
-        self.date = 00000000
 
 
 class ViewContactsAll(View):
-    template_name = "contacts.html"
+    template_name = "ContactsAll.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.error = 0
         self.head = 'contacts/'
-        self.data = []
-        self.subject = 0
-        self.date = 00000000
+
 
 class ViewVenues(View):
-    template_name = "venues.html"
+    template_name = "Venue.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.error = 0
         self.head = 'venues/'
-        self.data = []
-        self.subject = 0
-        self.date = 00000000
 
     def get_infected(self, **kwargs):
         with open('json_data.json') as json_file:
@@ -92,15 +81,44 @@ class ViewVenues(View):
                 flag = 1
         self.error = (flag == 0)
 
+
 class ViewContacts(ViewVenues):
-    template_name = "contacts.html"
+    template_name = "Contact.html"
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.head = 'contacts/'
+
+
+class ViewInfected(TemplateView):
+    template_name = "infected.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.error = 0
-        self.head = 'contacts/'
         self.data = []
-        self.subject = 0
-        self.date = 00000000
+    
+    def get_infected(self):
+        with open('json_data.json') as json_file:
+            self.infected = (json.load(json_file))
+
+    def get_data(self):
+        data = []
+        for infected in self.infected['infected']:
+            hkuID, date = infected['hkuID'], str(infected['date'])
+            date = date[0:4] + '-' + date[4:6] + '-' + date[6:8]
+            venues = 'http://localhost:8000/Trace/venues/' + str(hkuID)
+            contacts = 'http://localhost:8000/Trace/contacts/' + str(hkuID)
+            data += [{'hkuID':hkuID, 'date':date, 'venues':venues, 'contacts':contacts}]
+        self.data = data
+
+    def get_context_data(self, **kwargs):
+        self.get_infected()
+        self.get_data()
+        context = dict()
+        context['error'] = self.error
+        context['data'] = self.data
+        return context
+
+
 
 if __name__ == '__main__':
     venues = ViewVenues()
