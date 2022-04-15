@@ -9,7 +9,7 @@ class View(TemplateView):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.error = 0
-        self.head = 'venues/'
+        self.head = 'ContactVenue/'
         self.data = []
         self.subject = 0
         self.date = 00000000
@@ -53,21 +53,21 @@ class ViewVenuesAll(View):
     template_name = "VenuesAll.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.head = 'venues/'
+        self.head = 'ContactVenue/'
 
 
 class ViewContactsAll(View):
     template_name = "ContactsAll.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.head = 'contacts/'
+        self.head = 'ContactMember/'
 
 
 class ViewVenues(View):
     template_name = "Venue.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.head = 'venues/'
+        self.head = 'ContactVenue/'
 
     def get_infected(self, **kwargs):
         with open('json_data.json') as json_file:
@@ -86,7 +86,7 @@ class ViewContacts(ViewVenues):
     template_name = "Contact.html"
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.head = 'contacts/'
+        self.head = 'ContactMember/'
 
 
 class ViewInfected(TemplateView):
