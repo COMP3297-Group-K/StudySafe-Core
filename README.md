@@ -62,7 +62,7 @@ APIs associated with StudySafe Trace:
  - view the whole list of all infected members
    - visit http://localhost:8000/Trace/infected
  - view the whole list of all close contacts
-   - http://localhost:8000/Trace/contacts
+   - visit http://localhost:8000/Trace/contacts
  - view the whole list of all venues visited by the infectious two days before onset/diagnosis
    - visit http://localhost:8000/Trace/venues
  - view a list of `hkuID`'s close contacts
