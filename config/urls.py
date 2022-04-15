@@ -28,7 +28,7 @@ schema_view = get_schema_view(
           lecture theatres on campus.",
       terms_of_service="https://github.com/COMP3297-Group-K/StudySafe/blob/main/README.md",
       contact=openapi.Contact(email="jolinc@hku.hk"),
-      license=openapi.License(name=""),
+    #   license=openapi.License(name=""),
    ),
    public=True,
 )
