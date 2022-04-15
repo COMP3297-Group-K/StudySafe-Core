@@ -1,8 +1,8 @@
 # StudySafe
 
-| Repository and project root | Configuration root | App root                          |
-| --------------------------- | ------------------ | --------------------------------- |
-| StudySafe                   | StudySafe/config   | StudySafe/Core<br>StudySafe/Trace |
+| Repository and project root | Configuration root | App root                                             |
+| --------------------------- | ------------------ | ---------------------------------------------------- |
+| StudySafe                   | StudySafe/config   | StudySafe/users<br>StudySafe/Core<br>StudySafe/Trace |
 
 ## Run the server
 
