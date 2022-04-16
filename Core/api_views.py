@@ -18,7 +18,7 @@ test_param = [
 user_response = openapi.Response('A list of venues visted by the input member', VenueSerializer)
 
 @swagger_auto_schema(
-    method='get', operation_description="list all venues visited by HKU members with id `member_id`, infected time `date`",\
+    method='get', operation_description="List all venues visited by HKU members with id `member_id`, infected time `date`",\
     manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
 def ContactVenue(request, member_id: int, date: int): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
@@ -38,7 +38,7 @@ def ContactVenue(request, member_id: int, date: int): #https://django.cowhite.co
 
 user_response = openapi.Response('A list of close contacts of the input infected member', MemberSerializer)
 @swagger_auto_schema(
-    method='get', operation_description="list the close contacts of HKU members with id `member_id`, infected time `date`",\
+    method='get', operation_description="List the close contacts of HKU members with id `member_id`, infected time `date`",\
     manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
 def ContactMember(request, member_id, date):
@@ -64,11 +64,23 @@ def ContactMember(request, member_id, date):
     serializer = MemberSerializer(close_contact_members, many=True)
     return Response(serializer.data)
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="List all entry exit records"))
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Create an entry exit record"))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(
+    operation_description="List entry exit record with `id`"))
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    operation_description="Modify entry exit record with `id`"))  
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(
+    operation_description="Modify entry exit record with `id`"))  
+@method_decorator(name='destroy', decorator=swagger_auto_schema(
+    operation_description="Delete entry exit record with `id`"))    
 class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
 
     @swagger_auto_schema(
-        operation_description="retrieve the exit or entry record of member `member_id` at venue `venue_name`",\
+        operation_description="Retrieve the exit or entry record of member `member_id` at venue `venue_name`",\
         responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})
     def retrieve(self, request, pk, **kwargs):
         time = datetime.strptime(pk,"%Y%m%d-%H:%M:%S")
@@ -87,13 +99,34 @@ class ExitEntryViewSet(ModelViewSet):
             obj.save()
             return HttpResponse("Exit record was recored.")
 
-# @method_decorator(name='list', decorator=swagger_auto_schema(
-#     operation_description="description from swagger_auto_schema via method_decorator"
-# ))      
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="List all HKU members"))
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Create a HKU member"))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(
+    operation_description="List HKU member with `hkuID`"))
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    operation_description="Modify HKU member with `hkuID`"))  
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(
+    operation_description="Modify HKU member with `hkuID`"))  
+@method_decorator(name='destroy', decorator=swagger_auto_schema(
+    operation_description="Delete HKU member with `hkuID`"))      
 class hkuMembersViewSet(ModelViewSet):
     queryset = HKUMember.objects.all()
     serializer_class = MemberSerializer
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="List all venues"))
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Create a venue"))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(
+    operation_description="List venue with `venue_code`"))
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    operation_description="Modify venue with `venue_code`"))  
+@method_decorator(name='partial_update', decorator=swagger_auto_schema(
+    operation_description="Modify venue with `venue_code`"))  
+@method_decorator(name='destroy', decorator=swagger_auto_schema(
+    operation_description="Delete venue with `venue_code`"))     
 class VenuesViewset(ModelViewSet):
     lookup_value_regex = '[\d\w\-\.]+'
     queryset = Venue.objects.all()
