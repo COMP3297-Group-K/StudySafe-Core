@@ -4,9 +4,8 @@ from rest_framework.routers import DefaultRouter
 from .api_views import *
 
 router = DefaultRouter()
-router.register(r'ExitEntry/(?P<hkuID>[^/.]+)/(?P<venue_code>[^/]+)/(?P<date>[^/.]+)', ExitEntryViewSet)
+router.register(r'ExitEntry/(?P<hkuID>[^/.]+)/(?P<venue_code>[^/]+)/(?P<date>[^/]+)', ExitEntryViewSet)
 router.register(r'members', hkuMembersViewSet)
-# router.register(r'venues/(?P<hkuID>[^/.]+)/(?P<date>[^/]+)', ContactVenue)
 router.register(r'venues', VenuesViewset)
 
 #e.g. http://127.0.0.1:8000/Core/members/close-contacts/3030012345/20220411/
