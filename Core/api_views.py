@@ -8,25 +8,25 @@ from rest_framework.response import Response
 from datetime import date, timedelta, datetime
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.utils.decorators import method_decorator
 
-
+# adding parameters documentation
 test_param = [
     openapi.Parameter('member_id', openapi.IN_PATH, description="HKU ID of the infected member", type=openapi.TYPE_STRING),
     openapi.Parameter('date', openapi.IN_PATH, description="Infection date of the corresponding member", type=openapi.TYPE_STRING),
 ]
-user_response = openapi.Response('A list a venues visted by the input member', VenueSerializer)
+user_response = openapi.Response('A list of venues visted by the input member', VenueSerializer)
 
-@swagger_auto_schema(method='get', operation_description="list close contacts of HKU members with id `member_id`, \
-    infected time `date`",\
+@swagger_auto_schema(
+    method='get', operation_description="list all venues visited by HKU members with id `member_id`, infected time `date`",\
     manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
-def ContactVenue(request, member_id, date): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
-    """list close contacts of HKU members with id `member_id`, infected time `date`
+def ContactVenue(request, member_id: int, date: int): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
+    """list all venues visited by HKU members with id `member_id`, infected time `date`
 
     Args:
-        request (_type_): _description_
         member_id (int): HKU id of the infected people
-        date (_type_): infection time
+        date (int): infection time
     """
     diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
     visited_venue = Venue.objects.filter(exitentryrecord__date__range = [diagnosed_date-timedelta(days=2),diagnosed_date],\
@@ -36,7 +36,10 @@ def ContactVenue(request, member_id, date): #https://django.cowhite.com/blog/wor
     serializer = VenueSerializer(visited_venue, many=True)
     return Response(serializer.data)
 
-
+user_response = openapi.Response('A list of close contacts of the input infected member', MemberSerializer)
+@swagger_auto_schema(
+    method='get', operation_description="list the close contacts of HKU members with id `member_id`, infected time `date`",\
+    manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
 def ContactMember(request, member_id, date):
     close_contact_members = HKUMember.objects.none()
@@ -64,6 +67,9 @@ def ContactMember(request, member_id, date):
 class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
 
+    @swagger_auto_schema(
+        operation_description="retrieve the exit or entry record of member `member_id` at venue `venue_name`",\
+        responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})
     def retrieve(self, request, pk, **kwargs):
         time = datetime.strptime(pk,"%Y%m%d-%H:%M:%S")
         date = time.date()
@@ -81,7 +87,9 @@ class ExitEntryViewSet(ModelViewSet):
             obj.save()
             return HttpResponse("Exit record was recored.")
 
-        
+# @method_decorator(name='list', decorator=swagger_auto_schema(
+#     operation_description="description from swagger_auto_schema via method_decorator"
+# ))      
 class hkuMembersViewSet(ModelViewSet):
     queryset = HKUMember.objects.all()
     serializer_class = MemberSerializer
