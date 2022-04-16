@@ -125,7 +125,7 @@ class ExitEntryViewSet(ModelViewSet):
         date = time.date()
         member_id = kwargs['hkuID']
         venue_name = kwargs['venue_code']
-        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date)
+        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date=date, Venue=venue_name)
         serializer = ExitEntryRecordSerializer(obj, many=True)
         return Response(serializer.data)
 
