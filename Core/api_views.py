@@ -1,10 +1,11 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet, GenericViewSet
 from rest_framework.decorators import api_view
 from django.db.models import F
 from django.http import HttpResponse
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
+from rest_framework import mixins
 from datetime import date, timedelta, datetime
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -64,10 +65,10 @@ def ContactMember(request, hkuID, date):
     serializer = MemberSerializer(close_contact_members, many=True)
     return Response(serializer.data)
 
-@method_decorator(name='list', decorator=swagger_auto_schema(
-    operation_description="List all entry exit records"))
-@method_decorator(name='create', decorator=swagger_auto_schema(
-    operation_description="Create an entry exit record"))
+# @method_decorator(name='list', decorator=swagger_auto_schema(
+#     operation_description="List all entry exit records"))
+# @method_decorator(name='create', decorator=swagger_auto_schema(
+#     operation_description="Create an entry exit record"))
 @method_decorator(name='retrieve', decorator=swagger_auto_schema(
     operation_description="List entry exit record with `id`"))
 @method_decorator(name='update', decorator=swagger_auto_schema(
@@ -76,28 +77,57 @@ def ContactMember(request, hkuID, date):
     operation_description="Modify entry exit record with `id`"))  
 @method_decorator(name='destroy', decorator=swagger_auto_schema(
     operation_description="Delete entry exit record with `id`"))    
+# class ExitEntryViewSet(ModelViewSet):
+#     queryset = ExitEntryRecord.objects.all()
+#     serializer_class = ExitEntryRecordSerializer
+#     @swagger_auto_schema(
+#         operation_description="Retrieve the exit or entry record of member `hkuID` at venue `venue_code`",\
+#         responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})
+#     def retrieve(self, request, pk, **kwargs):
+#         time = datetime.strptime(pk,"%Y%m%d-%H:%M:%S")
+#         date = time.date()
+#         member_id = kwargs['hkuID']
+#         venue_name = kwargs['venue_code']
+#         obj, created = ExitEntryRecord.objects.get_or_create(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'),
+#         defaults={'entry_time': time, 'exit_time': time,
+#             'Venue': Venue.objects.get(venue_code = venue_name),
+#             'HKUMember': HKUMember.objects.get(hkuID = member_id) }
+#         )
+#         if created:
+#             return HttpResponse("Entry record was recorded.")
+#         else:
+#             obj.exit_time = time
+#             obj.save()
+#             return HttpResponse("Exit record was recored.")
+
 class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
     serializer_class = ExitEntryRecordSerializer
     @swagger_auto_schema(
-        operation_description="Retrieve the exit or entry record of member `hkuID` at venue `venue_code`",\
+        operation_description="Create the exit or entry record of member `hkuID` at venue `venue_code`",\
         responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})
-    def retrieve(self, request, pk, **kwargs):
-        time = datetime.strptime(pk,"%Y%m%d-%H:%M:%S")
+    def create(self, request, **kwargs):
+        time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")
         date = time.date()
         member_id = kwargs['hkuID']
         venue_name = kwargs['venue_code']
-        obj, created = ExitEntryRecord.objects.get_or_create(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'),
-        defaults={'entry_time': time, 'exit_time': time,
-            'Venue': Venue.objects.get(venue_code = venue_name),
-            'HKUMember': HKUMember.objects.get(hkuID = member_id) }
-        )
-        if created:
-            return HttpResponse("Entry record was recorded.")
-        else:
+        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
+        if obj:
             obj.exit_time = time
             obj.save()
-            return HttpResponse("Exit record was recored.")
+        else:
+            created = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=time, exit_time=time, Venue=Venue.objects.get(venue_code = venue_name))
+    @swagger_auto_schema(
+        operation_description="Retrieve the exit or entry record of member `hkuID` at venue `venue_code`",\
+        responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})
+    def list(self, request, *args, **kwargs):
+        time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")
+        date = time.date()
+        member_id = kwargs['hkuID']
+        venue_name = kwargs['venue_code']
+        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date)
+        serializer = ExitEntryRecordSerializer(obj, many=True)
+        return Response(serializer.data)
 
 @method_decorator(name='list', decorator=swagger_auto_schema(
     operation_description="List all HKU members"))
