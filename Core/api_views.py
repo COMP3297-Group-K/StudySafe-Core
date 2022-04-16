@@ -12,20 +12,20 @@ from django.utils.decorators import method_decorator
 
 # adding parameters documentation
 test_param = [
-    openapi.Parameter('member_id', openapi.IN_PATH, description="HKU ID of the infected member", type=openapi.TYPE_STRING),
+    openapi.Parameter('hkuID', openapi.IN_PATH, description="HKU ID of the infected member", type=openapi.TYPE_STRING),
     openapi.Parameter('date', openapi.IN_PATH, description="Infection date of the corresponding member", type=openapi.TYPE_STRING),
 ]
 user_response = openapi.Response('A list of venues visted by the input member', VenueSerializer)
 
 @swagger_auto_schema(
-    method='get', operation_description="List all venues visited by HKU members with id `member_id`, infected time `date`",\
+    method='get', operation_description="List all venues visited by HKU members with id `hkuID`, infected time `date`",\
     manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
-def ContactVenue(request, member_id: int, date: int): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
-    """list all venues visited by HKU members with id `member_id`, infected time `date`
+def ContactVenue(request, hkuID: int, date: int): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
+    """list all venues visited by HKU members with id `hkuID`, infected time `date`
 
     Args:
-        member_id (int): HKU id of the infected people
+        hkuID (int): HKU id of the infected people
         date (int): infection time
     """
     diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
@@ -80,13 +80,13 @@ class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
 
     @swagger_auto_schema(
-        operation_description="Retrieve the exit or entry record of member `member_id` at venue `venue_name`",\
+        operation_description="Retrieve the exit or entry record of member `hkuID` at venue `venue_code`",\
         responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})
     def retrieve(self, request, pk, **kwargs):
         time = datetime.strptime(pk,"%Y%m%d-%H:%M:%S")
         date = time.date()
-        member_id = kwargs['member_id']
-        venue_name = kwargs['venue_name']
+        member_id = kwargs['hkuID']
+        venue_name = kwargs['venue_code']
         obj, created = ExitEntryRecord.objects.get_or_create(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'),
         defaults={'entry_time': time, 'exit_time': time,
             'Venue': Venue.objects.get(venue_code = venue_name),

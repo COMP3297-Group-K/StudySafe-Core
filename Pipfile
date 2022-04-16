@@ -9,6 +9,7 @@ tzdata = "*"
 djangorestframework = "*"
 requests = "*"
 drf-yasg = "*"
+backports-zoneinfo = "*"
 
 [dev-packages]
 
