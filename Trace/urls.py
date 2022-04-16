@@ -6,6 +6,6 @@ urlpatterns = [
     path('infected', views.ViewInfected.as_view()),
     path('venues', views.ViewVenuesAll.as_view()),
     path('contacts', views.ViewContactsAll.as_view()),
-    path('venues/<int:hkuID>', views.ViewVenues.as_view(), name='venues-members'),
-    path('contacts/<int:hkuID>', views.ViewContacts.as_view(), name='contacts-members'),
+    path('venues/<str:hkuID>', views.ViewVenues.as_view(), name='venues-members'),
+    path('contacts/<str:hkuID>', views.ViewContacts.as_view(), name='contacts-members'),
 ]

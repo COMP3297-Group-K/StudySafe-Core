@@ -78,7 +78,7 @@ def ContactMember(request, hkuID, date):
     operation_description="Delete entry exit record with `id`"))    
 class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
-
+    serializer_class = ExitEntryRecordSerializer
     @swagger_auto_schema(
         operation_description="Retrieve the exit or entry record of member `hkuID` at venue `venue_code`",\
         responses={200: openapi.Response('Text field specifying exit or entry', type=openapi.TYPE_STRING)})

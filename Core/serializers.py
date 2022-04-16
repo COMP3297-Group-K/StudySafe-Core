@@ -13,3 +13,9 @@ class VenueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venue
         fields = '__all__'
+
+class ExitEntryRecordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ExitEntryRecord
+        fields = '__all__'

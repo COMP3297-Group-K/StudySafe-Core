@@ -15,8 +15,8 @@ router.register(r'venues', VenuesViewset)
 #for Core/exitentry/... : Returns 'Entry...' or 'Exit...' 
 
 urlpatterns = [
-    path('venues/infectious-venues/<int:hkuID>/<int:date>/', ContactVenue),
-    path('members/close-contacts/<int:hkuID>/<int:date>/', ContactMember),
+    path('venues/infectious-venues/<str:hkuID>/<str:date>/', ContactVenue),
+    path('members/close-contacts/<str:hkuID>/<str:date>/', ContactMember),
     path('', include(router.urls)),
 ]
 
