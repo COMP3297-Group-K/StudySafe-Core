@@ -6,9 +6,28 @@ from .models import *
 from .serializers import *
 from rest_framework.response import Response
 from datetime import date, timedelta, datetime
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
+
+test_param = [
+    openapi.Parameter('member_id', openapi.IN_PATH, description="HKU ID of the infected member", type=openapi.TYPE_STRING),
+    openapi.Parameter('date', openapi.IN_PATH, description="Infection date of the corresponding member", type=openapi.TYPE_STRING),
+]
+user_response = openapi.Response('A list a venues visted by the input member', VenueSerializer)
+
+@swagger_auto_schema(method='get', operation_description="list close contacts of HKU members with id `member_id`, \
+    infected time `date`",\
+    manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
 def ContactVenue(request, member_id, date): #https://django.cowhite.com/blog/working-with-url-get-post-parameters-in-django/
+    """list close contacts of HKU members with id `member_id`, infected time `date`
+
+    Args:
+        request (_type_): _description_
+        member_id (int): HKU id of the infected people
+        date (_type_): infection time
+    """
     diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
     visited_venue = Venue.objects.filter(exitentryrecord__date__range = [diagnosed_date-timedelta(days=2),diagnosed_date],\
             exitentryrecord__HKUMember__hkuID=member_id)\
