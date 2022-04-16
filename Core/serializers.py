@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import *
 
 class MemberSerializer(serializers.ModelSerializer):
-
+	
     class Meta:
         model = HKUMember
         fields = ['hkuID','name']

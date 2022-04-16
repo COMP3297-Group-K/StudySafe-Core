@@ -2,22 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-# class TaskForceMember(models.Model):
-#     username = models.CharField(max_length = 16)
-#     password = models.CharField(max_length = 16)
-#     first_name = models.CharField(max_length = 32)
-#     last_name = models.CharField(max_length = 32)
-#     email = models.CharField(max_length = 32)
-#     def __str__(self):
-#         return self.username
-
-# class Device(models.Model):
-#     username = models.CharField(max_length = 16)
-#     password = models.CharField(max_length = 16)
-#     Venue = models.ForeignKey(Venue, on_delete = models.CASCADE)
-#     def __str__(self):
-#         return f'{self.username} at {self.Venue.venue_code}'
-
 class Venue(models.Model):
     venue_code = models.CharField(max_length = 20, primary_key = True)
     location = models.CharField(max_length = 150)
