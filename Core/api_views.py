@@ -30,7 +30,7 @@ def ContactVenue(request, member_id: int, date: int): #https://django.cowhite.co
     """
     diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
     visited_venue = Venue.objects.filter(exitentryrecord__date__range = [diagnosed_date-timedelta(days=2),diagnosed_date],\
-            exitentryrecord__HKUMember__hkuID=member_id)\
+            exitentryrecord__HKUMember__hkuID=hkuID)\
             .order_by('venue_code')\
             .distinct()
     serializer = VenueSerializer(visited_venue, many=True)
@@ -41,11 +41,11 @@ user_response = openapi.Response('A list of close contacts of the input infected
     method='get', operation_description="List the close contacts of HKU members with id `member_id`, infected time `date`",\
     manual_parameters=test_param, responses={200: user_response})
 @api_view(['GET',])
-def ContactMember(request, member_id, date):
+def ContactMember(request, hkuID, date):
     close_contact_members = HKUMember.objects.none()
     diagnosed_date = datetime.strptime(str(date), "%Y%m%d")
     queryset = ExitEntryRecord.objects\
-        .filter(HKUMember__hkuID=member_id) \
+        .filter(HKUMember__hkuID=hkuID) \
         .filter(date__range = [diagnosed_date-timedelta(days=2),diagnosed_date]).values()
 
     for individual_access in queryset:
@@ -55,7 +55,7 @@ def ContactMember(request, member_id, date):
         venueid = individual_access['Venue_id']
         potential_close_contact = ExitEntryRecord.objects\
             .filter(date = accessdate, entry_time__lte = exittime, exit_time__gte = entertime, Venue_id = venueid)\
-            .exclude(HKUMember__hkuID=member_id).values()
+            .exclude(HKUMember__hkuID=hkuID).values()
         for potential_close_contact_access in potential_close_contact:
             close_contact_bool = ((exittime-potential_close_contact_access["entry_time"]>=timedelta(minutes = 30))| (potential_close_contact_access["exit_time"]-entertime>=timedelta(minutes = 30)))
             if(close_contact_bool):
