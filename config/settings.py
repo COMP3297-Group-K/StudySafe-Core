@@ -99,22 +99,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # alter role adminse with password ‘comp3297’
 # grant all privileges on database groupk_db to adminse
 # alter database groupk_db owner to adminse
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'groupk_db',
-        'USER': 'adminse',
-        'PASSWORD': 'comp3297',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'groupk_db',
+#         'USER': 'adminse',
+#         'PASSWORD': 'comp3297',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Heroku database
-# import dj_database_url
-# DATABASES = {
-#     'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-# }
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+}
 
 
 # Password validation
