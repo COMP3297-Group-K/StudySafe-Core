@@ -11,6 +11,9 @@ requests = "*"
 drf-yasg = "*"
 backports-zoneinfo = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
+whitenoise = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
