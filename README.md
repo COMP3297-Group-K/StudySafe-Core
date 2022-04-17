@@ -117,30 +117,30 @@ APIs associated with StudySafe Trace:
 #### StudySafe Trace
  - view all the infected HKU members
 
-   <!--- http://localhost:8000/Trace/infected --->
+   <!--- http://localhost:8000/Trace/infected/ --->
 
-   http://group-k-studysafe.herokuapp.com/Trace/infected
+   http://group-k-studysafe.herokuapp.com/Trace/infected/
 
  - view their close contacts
    
-   <!--- http://localhost:8000/Trace/contacts -->
+   <!--- http://localhost:8000/Trace/contacts/ -->
    
-   http://group-k-studysafe.herokuapp.com/Trace/contacts
+   http://group-k-studysafe.herokuapp.com/Trace/contacts/
    
  - view all the venues visited by the infectious two days before onset/diagnosis
    
-   <!--- http://localhost:8000/Trace/venues --->
+   <!--- http://localhost:8000/Trace/venues/ --->
    
-   http://group-k-studysafe.herokuapp.com/Trace/venues
+   http://group-k-studysafe.herokuapp.com/Trace/venues/
    
  - view `hkuID`'s close contacts
    
    <!--- [http://localhost:8000/Trace/contacts/<hkuID\>](), e.g. http://localhost:8000/Trace/contacts/3030012348 --->
    
-   [http://group-k-studysafe.herokuapp.com/Trace/contacts/<hkuID\>](), <br>e.g. http://group-k-studysafe.herokuapp.com/Trace/contacts/3030012348
+   [http://group-k-studysafe.herokuapp.com/Trace/contacts/<hkuID\>/](), <br>e.g. http://group-k-studysafe.herokuapp.com/Trace/contacts/3030012348/
    
  - view the venues visited by `hkuID` two days before onset/diagnosis
    
    <!--- [http://localhost:8000/Trace/venues/<hkuID\>](), e.g. http://localhost:8000/Trace/venues/3030012348 --->
    
-   [http://group-k-studysafe.herokuapp.com/Trace/venues/<hkuID\>](), <br>e.g. http://group-k-studysafe.herokuapp.com/Trace/venues/3030012348
+   [http://group-k-studysafe.herokuapp.com/Trace/venues/<hkuID\>/](), <br>e.g. http://group-k-studysafe.herokuapp.com/Trace/venues/3030012348/
