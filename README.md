@@ -54,9 +54,10 @@ General purpose APIs:
   http://group-k-studysafe.herokuapp.com/Core/venues/
 
  - retrieve campus venue `pk`
-    
+   
+
   <!--- [http://127.0.0.1:8000/Core/venues/<pk\>/](), e.g. http://127.0.0.1:8000/Core/venues/CPD-LG.02/ --->
-  
+
   [http://group-k-studysafe.herokuapp.com/Core/venues/<pk\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
 
 
