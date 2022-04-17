@@ -16,6 +16,7 @@ whitenoise = "*"
 dj-database-url = "*"
 awscli = "*"
 django-environ = "*"
+environs = "*"
 
 [dev-packages]
 
