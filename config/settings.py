@@ -32,7 +32,7 @@ SECRET_KEY = env.str('QDD_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['group-k-studysafe-core.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['groupk-studysafe.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Custom users
 
