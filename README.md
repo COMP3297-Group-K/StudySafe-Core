@@ -1,6 +1,6 @@
 # StudySafe
 
-<div style='background-color:yellow'>Modified on April 17, 2022 for sprint 1 deliverable.</div>
+<div style='font-color:yellow'>Modified on April 17, 2022 for sprint 1 deliverable.</div>
 
 visit http://group-k-studysafe.herokuapp.com/admin as superuser (Username: `adminse`, Password: `comp3297`)
 
