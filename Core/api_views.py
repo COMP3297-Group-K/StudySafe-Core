@@ -80,17 +80,31 @@ class ExitEntryViewSet(ModelViewSet):
 
     @swagger_auto_schema(
         operation_description="Create the exit or entry record of member `hkuID` at venue `venue_code`")
-    def create(self, request, **kwargs):
-        time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")
+    def create(self, request):
+
+        data = request.data
+        time = datetime.strptime(data['date'],"%Y%m%d-%H:%M:%S")
         date = time.date()
-        member_id = kwargs['hkuID']
-        venue_name = kwargs['venue_code']
+        member_id = data['hkuID']
+        venue_name = data['venue_code']
         obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
         if obj:
             obj.exit_time = time
             obj.save()
         else:
             created = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=time, exit_time=time, Venue=Venue.objects.get(venue_code = venue_name))
+    # def create(self, request, **kwargs):
+
+    #     time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")
+    #     date = time.date()
+    #     member_id = kwargs['hkuID']
+    #     venue_name = kwargs['venue_code']
+    #     obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
+    #     if obj:
+    #         obj.exit_time = time
+    #         obj.save()
+    #     else:
+    #         created = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=time, exit_time=time, Venue=Venue.objects.get(venue_code = venue_name))
 
     @swagger_auto_schema(
         operation_description="Retrive the exit or entry record of member `hkuID` at venue `venue_code`",\
