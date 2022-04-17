@@ -82,44 +82,22 @@ class ExitEntryViewSet(ModelViewSet):
         operation_description="Create the exit or entry record of member `hkuID` at venue `venue_code`")
     def create(self, request):
 
-        data = request.POST
-        datetime = datetime.strptime(data['date'],"%Y%m%d-%H:%M:%S")
-        date = datetime.date()
+        data = request.data
+        date_time = datetime.strptime(data['datetime'],"%Y%m%d-%H:%M:%S")
+        date = date_time.date()
         member_id = data['hkuID']
         venue_name = data['venue_code']
         obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
         if obj:
-            obj.exit_time = datetime
-            obj.save()
-            return Response('Recorded! '+str(member_id)+' exited '+venue_name+' at '+str(datetime))
+            for i in obj:
+                i.exit_time = date_time
+                i.save()
+            return Response('Recorded! '+str(member_id)+' exited '+venue_name+' at '+str(date_time))
         else:
-            new_record = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=datetime, exit_time=datetime, Venue=Venue.objects.get(venue_code = venue_name))
+            new_record = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=date_time, exit_time=date_time, Venue=Venue.objects.get(venue_code = venue_name))
             new_record.save()
-            return Response('Recorded! '+str(member_id)+' entered '+venue_name+' at '+str(datetime))
-    # def create(self, request, **kwargs):
+            return Response('Recorded! '+str(member_id)+' entered '+venue_name+' at '+str(date_time))
 
-    #     time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")
-    #     date = time.date()
-    #     member_id = kwargs['hkuID']
-    #     venue_name = kwargs['venue_code']
-    #     obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
-    #     if obj:
-    #         obj.exit_time = time
-    #         obj.save()
-    #     else:
-    #         created = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=time, exit_time=time, Venue=Venue.objects.get(venue_code = venue_name))
-
-    @swagger_auto_schema(
-        operation_description="Retrive the exit or entry record of member `hkuID` at venue `venue_code`",\
-        responses={200: openapi.Response('The exit or entry record of the input member', ExitEntryRecordSerializer)})
-    def list(self, request, *args, **kwargs):
-        time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")
-        date = time.date()
-        member_id = kwargs['hkuID']
-        venue_name = kwargs['venue_code']
-        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date=date, Venue=venue_name)
-        serializer = ExitEntryRecordSerializer(obj, many=True)
-        return Response(serializer.data)
 
 @method_decorator(name='list', decorator=swagger_auto_schema(
     operation_description="List all HKU members"))
