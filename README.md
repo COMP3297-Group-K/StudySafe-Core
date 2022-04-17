@@ -60,8 +60,7 @@ General purpose APIs:
 
   <!--- [http://127.0.0.1:8000/Core/venues/<venue_code\>/](), e.g. http://127.0.0.1:8000/Core/venues/CPD-LG.02/ --->
 
-  [http://group-k-studysafe.herokuapp.com/Core/venues/<venue_code\>/](), 
-  e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
+  [http://group-k-studysafe.herokuapp.com/Core/venues/<venue_code\>/](), <br>e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
 
 
  - list all the HKU members
@@ -75,8 +74,7 @@ General purpose APIs:
 
    <!--- [http://127.0.0.1:8000/Core/members/<hkuID\>/](), e.g. http://127.0.0.1:8000/Core/members/3030012344/ --->
 
-   [http://group-k-studysafe.herokuapp.com/Core/members/<hkuID\>/](), 
-   e.g. http://group-k-studysafe.herokuapp.com/Core/members/3030012344/
+   [http://group-k-studysafe.herokuapp.com/Core/members/<hkuID\>/](), <br>e.g. http://group-k-studysafe.herokuapp.com/Core/members/3030012344/
 
 
 APIs associated with StudySafe Trace:
@@ -85,15 +83,13 @@ APIs associated with StudySafe Trace:
    
    <!--- [http://127.0.0.1:8000/Core/members/close-contacts/<hkuID\>/<date\>/](), e.g. http://127.0.0.1:8000/Core/members/close-contacts/3030012345/20220411/ --->
    
-   [http://group-k-studysafe.herokuapp.com/Core/members/close-contacts/<hkuID\>/<date\>/](), 
-   e.g. http://group-k-studysafe.herokuapp.com/Core/members/close-contacts/3030012345/20220411/
+   [http://group-k-studysafe.herokuapp.com/Core/members/close-contacts/<hkuID\>/<date\>/](), <br>e.g. http://group-k-studysafe.herokuapp.com/Core/members/close-contacts/3030012345/20220411/
    
  - retrieve the **venues** visited by `hkuID` whose onset/diagnose date is `date` (YYYYMMDD)
    
    <!--- [http://127.0.0.1:8000/Core/venues/infectious-venues/<hkuID\>/<date\>/](), e.g. http://127.0.0.1:8000/Core/venues/infectious-venues/3030012345/20220411/ --->
    
-   [http://group-k-studysafe.herokuapp.com/Core/venues/infectious-venues/<hkuID\>/<date\>/](), 
-   e.g. http://group-k-studysafe.herokuapp.com/Core/venues/infectious-venues/3030012345/20220411/
+   [http://group-k-studysafe.herokuapp.com/Core/venues/infectious-venues/<hkuID\>/<date\>/](), <br>e.g. http://group-k-studysafe.herokuapp.com/Core/venues/infectious-venues/3030012345/20220411/
    
  - add **exit/entry record** of `hkuID` to `venue` at `datetime` (YYYMMDD-HH:MM:SS)
    
@@ -141,12 +137,10 @@ APIs associated with StudySafe Trace:
    
    <!--- [http://localhost:8000/Trace/contacts/<hkuID\>](), e.g. http://localhost:8000/Trace/contacts/3030012348 --->
    
-   [http://group-k-studysafe.herokuapp.com/Trace/contacts/<hkuID\>](), 
-   e.g. http://group-k-studysafe.herokuapp.com/Trace/contacts/3030012348
+   [http://group-k-studysafe.herokuapp.com/Trace/contacts/<hkuID\>](), <br>e.g. http://group-k-studysafe.herokuapp.com/Trace/contacts/3030012348
    
  - view the venues visited by `hkuID` two days before onset/diagnosis
    
    <!--- [http://localhost:8000/Trace/venues/<hkuID\>](), e.g. http://localhost:8000/Trace/venues/3030012348 --->
    
-   [http://group-k-studysafe.herokuapp.com/Trace/venues/<hkuID\>](), 
-   e.g. http://group-k-studysafe.herokuapp.com/Trace/venues/3030012348
+   [http://group-k-studysafe.herokuapp.com/Trace/venues/<hkuID\>](), <br>e.g. http://group-k-studysafe.herokuapp.com/Trace/venues/3030012348
