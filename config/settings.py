@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-on1%s@dlfrq3n%=opt1t+%xrhj58*1=^xw!x#-3%2!l1(hb4at
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['group-k-studysafe-core.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Custom users
 
