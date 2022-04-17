@@ -82,7 +82,7 @@ class ExitEntryViewSet(ModelViewSet):
         operation_description="Create the exit or entry record of member `hkuID` at venue `venue_code`")
     def create(self, request):
 
-        data = request.data
+        data = request.POST
         time = datetime.strptime(data['date'],"%Y%m%d-%H:%M:%S")
         date = time.date()
         member_id = data['hkuID']
