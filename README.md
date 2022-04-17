@@ -12,7 +12,7 @@ visit http://group-k-studysafe.herokuapp.com/admin as superuser (Username: `admi
 
 ## Run the local test server
 
-1. After `git clone <URL>`, create virtual environment at the repository root, <br>
+1. After `git clone https://github.com/COMP3297-Group-K/StudySafe`, create virtual environment at the repository root, <br>
 
    ```shell
    pipenv --three
