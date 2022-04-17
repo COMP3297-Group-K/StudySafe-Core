@@ -83,16 +83,19 @@ class ExitEntryViewSet(ModelViewSet):
     def create(self, request):
 
         data = request.POST
-        time = datetime.strptime(data['date'],"%Y%m%d-%H:%M:%S")
-        date = time.date()
+        datetime = datetime.strptime(data['date'],"%Y%m%d-%H:%M:%S")
+        date = datetime.date()
         member_id = data['hkuID']
         venue_name = data['venue_code']
         obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
         if obj:
-            obj.exit_time = time
+            obj.exit_time = datetime
             obj.save()
+            return Response('Recorded! '+str(member_id)+' exited '+venue_name+' at '+str(datetime))
         else:
-            created = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=time, exit_time=time, Venue=Venue.objects.get(venue_code = venue_name))
+            new_record = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=datetime, exit_time=datetime, Venue=Venue.objects.get(venue_code = venue_name))
+            new_record.save()
+            return Response('Recorded! '+str(member_id)+' entered '+venue_name+' at '+str(datetime))
     # def create(self, request, **kwargs):
 
     #     time = datetime.strptime(kwargs['date'],"%Y%m%d-%H:%M:%S")

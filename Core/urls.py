@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .api_views import *
 
 router = DefaultRouter()
-router.register(r'ExitEntry/(?P<hkuID>[^/.]+)/(?P<venue_code>[^/]+)/(?P<date>[^/]+)', ExitEntryViewSet)
+router.register(r'ExitEntry', ExitEntryViewSet)
 router.register(r'members', hkuMembersViewSet)
 router.register(r'venues', VenuesViewset)
 
