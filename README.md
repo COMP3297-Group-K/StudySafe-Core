@@ -103,6 +103,8 @@ APIs associated with StudySafe Trace:
    
    (2. add *exit* record)http://group-k-studysafe.herokuapp.com/Core/ExitEntry/3030012345/CPD-LG.02/20220401-19:00:00/
 
+http POST http://group-k-studysafe.herokuapp.com/Core/ExitEntry/3030012345/CPD-LG.02/20220401-09:00:00/ date='20220401-09:00:00' venue_code='CPD-LG.02' hkuID='3030012345'
+
 #### StudySafe Trace
  - view all the infected HKU members
 
