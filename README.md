@@ -53,12 +53,12 @@ General purpose APIs:
 
   http://group-k-studysafe.herokuapp.com/Core/venues/
 
- - retrieve campus venue `pk`
+ - retrieve the info on a campus venue by `venue_code`
    
 
-  <!--- [http://127.0.0.1:8000/Core/venues/<pk\>/](), e.g. http://127.0.0.1:8000/Core/venues/CPD-LG.02/ --->
+  <!--- [http://127.0.0.1:8000/Core/venues/<venue_code\>/](), e.g. http://127.0.0.1:8000/Core/venues/CPD-LG.02/ --->
 
-  [http://group-k-studysafe.herokuapp.com/Core/venues/<pk\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
+  [http://group-k-studysafe.herokuapp.com/Core/venues/<venue_code\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
 
 
  - list all the HKU members
@@ -68,42 +68,49 @@ General purpose APIs:
    http://group-k-studysafe.herokuapp.com/Core/members/
 
 
- - retrieve HKU memebr `pk`
+ - retrieve the info about a HKU memeber by `hkuID`
 
-   <!--- [http://127.0.0.1:8000/Core/members/<pk\>/](), e.g. http://127.0.0.1:8000/Core/members/3030012344/ --->
+   <!--- [http://127.0.0.1:8000/Core/members/<hkuID\>/](), e.g. http://127.0.0.1:8000/Core/members/3030012344/ --->
 
-   [http://group-k-studysafe.herokuapp.com/Core/members/<pk\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/members/3030012344/
+   [http://group-k-studysafe.herokuapp.com/Core/members/<hkuID\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/members/3030012344/
 
 
 APIs associated with StudySafe Trace:
 
- - retrieve the close contacts of `hkuID` whose onset/diagnose data is `date` (YYYYMMDD)
+ - retrieve the **close contacts** of `hkuID` whose onset/diagnose date is `date` (YYYYMMDD)
    
    <!--- [http://127.0.0.1:8000/Core/members/close-contacts/<hkuID\>/<date\>/](), e.g. http://127.0.0.1:8000/Core/members/close-contacts/3030012345/20220411/ --->
    
    [http://group-k-studysafe.herokuapp.com/Core/members/close-contacts/<hkuID\>/<date\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/members/close-contacts/3030012345/20220411/
    
- - retrieve the venues visited by `hkuID` whose onset/diagnose data is `date` (YYYYMMDD)
+ - retrieve the **venues** visited by `hkuID` whose onset/diagnose date is `date` (YYYYMMDD)
    
    <!--- [http://127.0.0.1:8000/Core/venues/infectious-venues/<hkuID\>/<date\>/](), e.g. http://127.0.0.1:8000/Core/venues/infectious-venues/3030012345/20220411/ --->
    
    [http://group-k-studysafe.herokuapp.com/Core/venues/infectious-venues/<hkuID\>/<date\>/](), e.g. http://group-k-studysafe.herokuapp.com/Core/venues/infectious-venues/3030012345/20220411/
    
- - add exit/entry record of `hkuID` to `venue` at `datetime` (YYYMMDD-HH:MM:SS)
+ - add **exit/entry record** of `hkuID` to `venue` at `datetime` (YYYMMDD-HH:MM:SS)
    
-   <!--- [http://127.0.0.1:8000/Core/ExitEntry/<hkuID\>/<venue\>/<datetime\>/](), e.g. --->
+   <!--- http POST http://127.0.0.1:8000/Core/ExitEntry/ hkuID=<hkuID> venue_code=<venue_code> datetime='YYYYMMDD-HH:MM:SS', e.g. --->
    
-   <!--- (1. add entry record)http://127.0.0.1:8000/Core/ExitEntry/3030012345/CPD-LG.02/20220401-09:00:00/ --->
+   <!--- (1. add entry record)http POST http://127.0.0.1:8000/Core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00' --->
    
-   <!--- (2. add exit record)http://127.0.0.1:8000/Core/ExitEntry/3030012345/CPD-LG.02/20220401-19:00:00/ --->
+   <!--- (2. add exit record)http POST http://127.0.0.1:8000/Core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-9:30:00' --->
    
-   [http://group-k-studysafe.herokuapp.com/Core/ExitEntry/<hkuID\>/<venue\>/<datetime\>/](), e.g. 
+   ```shell
+   http POST http://group-k-studysafe.herokuapp.com/Core/ExitEntry/ hkuID=<hkuID> venue_code=<venue_code> datetime='YYYYMMDD-HH:MM:SS'
+   ```
+   e.g. 
+   1. add *entry* record
+   ```shell
+   http POST http://group-k-studysafe.herokuapp.com/Core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
+   ```
    
-   (1. add *entry* record)http://group-k-studysafe.herokuapp.com/Core/ExitEntry/3030012345/CPD-LG.02/20220401-09:00:00/
+   2. add *exit* record
    
-   (2. add *exit* record)http://group-k-studysafe.herokuapp.com/Core/ExitEntry/3030012345/CPD-LG.02/20220401-19:00:00/
-
-http POST http://group-k-studysafe.herokuapp.com/Core/ExitEntry/3030012345/CPD-LG.02/20220401-09:00:00/ date='20220401-09:00:00' venue_code='CPD-LG.02' hkuID='3030012345'
+   ```shell
+   http POST http://group-k-studysafe.herokuapp.com/Core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-9:30:00'
+   ```
 
 #### StudySafe Trace
  - view all the infected HKU members
