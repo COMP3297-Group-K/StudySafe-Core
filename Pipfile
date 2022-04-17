@@ -15,6 +15,7 @@ psycopg2-binary = "*"
 whitenoise = "*"
 dj-database-url = "*"
 awscli = "*"
+django-environ = "*"
 
 [dev-packages]
 
