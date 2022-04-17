@@ -41,9 +41,9 @@ visit http://group-k-studysafe.herokuapp.com/admin as superuser (Username: `admi
 
 ## API documentation
 
-<!--- ==Visit http://127.0.0.1:8000/Core/APIDoc for full documentation== --->
+<!--- Visit http://127.0.0.1:8000/Core/APIDoc for full documentation --->
 
-==Visit https://group-k-studysafe.herokuapp.com/Core/APIDoc for full documentation==
+#### Visit https://group-k-studysafe.herokuapp.com/Core/APIDoc for full documentation
 
 #### StudySafe Core (API)
 
