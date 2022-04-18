@@ -66,8 +66,12 @@ def ContactMember(request, hkuID, date):
     return Response(serializer.data)
 
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="List all entry exit records\n\
+    If `exit_time` is empty, then this is an entry record; otherwise exit record"))
 @method_decorator(name='retrieve', decorator=swagger_auto_schema(
-    operation_description="List entry exit record with `id`"))
+    operation_description="List entry exit record with `id`\n\
+    If `exit_time` is empty, then this is an entry record; otherwise exit record"))
 @method_decorator(name='update', decorator=swagger_auto_schema(
     operation_description="Modify entry exit record with `id`"))  
 @method_decorator(name='partial_update', decorator=swagger_auto_schema(
@@ -78,10 +82,15 @@ class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
     serializer_class = ExitEntryRecordSerializer
 
+    test_param = [
+        openapi.Parameter('data', openapi.IN_QUERY, description="If `exit_time` is empty, then this is an entry record; otherwise exit record", type=openapi.TYPE_OBJECT),
+    ]
     @swagger_auto_schema(
-        operation_description="Create the exit or entry record of member `hkuID` at venue `venue_code`")
+        method='post', operation_description="Create an exit or entry record of member `HKUmember` at venue `Venue`",\
+        manual_parameters=test_param, responses={200: openapi.Response('Recorded `HKUmember` exited/entered `Venue` at `time`', openapi.TYPE_STRING)})
+    @api_view(['POST',])
     def create(self, request):
-
+	
         data = request.data
         date_time = datetime.strptime(data['datetime'],"%Y%m%d-%H:%M:%S")
         date = date_time.date()
@@ -94,7 +103,7 @@ class ExitEntryViewSet(ModelViewSet):
                 i.save()
             return Response('Recorded! '+str(member_id)+' exited '+venue_name+' at '+str(date_time))
         else:
-            new_record = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=date_time, exit_time=date_time, Venue=Venue.objects.get(venue_code = venue_name))
+            new_record = ExitEntryRecord(date=date, HKUMember=HKUMember.objects.get(hkuID = member_id), entry_time=date_time, Venue=Venue.objects.get(venue_code = venue_name))
             new_record.save()
             return Response('Recorded! '+str(member_id)+' entered '+venue_name+' at '+str(date_time))
 
