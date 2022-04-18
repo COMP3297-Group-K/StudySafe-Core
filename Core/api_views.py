@@ -82,13 +82,10 @@ class ExitEntryViewSet(ModelViewSet):
     queryset = ExitEntryRecord.objects.all()
     serializer_class = ExitEntryRecordSerializer
 
-    test_param = [
-        openapi.Parameter('data', openapi.IN_QUERY, description="If `exit_time` is empty, then this is an entry record; otherwise exit record", type=openapi.TYPE_OBJECT),
-    ]
     @swagger_auto_schema(
-        method='post', operation_description="Create an exit or entry record of member `HKUmember` at venue `Venue`",\
-        manual_parameters=test_param, responses={200: openapi.Response('Recorded `HKUmember` exited/entered `Venue` at `time`', openapi.TYPE_STRING)})
-    @api_view(['POST',])
+        operation_description="Create an exit or entry record of member `HKUmember` at venue `Venue`\n\
+            If `exit_time` is empty, then this is an entry record; otherwise exit record",\
+        responses={201: openapi.Response('Text field: Recorded `HKUmember` exited/entered `Venue` at `time`', type=openapi.TYPE_STRING)})
     def create(self, request):
 	
         data = request.data
