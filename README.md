@@ -14,7 +14,7 @@ General purposes APIs:
 
  - list all the **campus venues**: http://group-k-studysafe.herokuapp.com/Core/venues/
 
- - retrieve the info on a campus venue by `venue_code`: [http://group-k-studysafe.herokuapp.com/Core/venues/<venue_code\>/]() e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
+ - retrieve the info on a campus venue by `venue_code`: [http://group-k-studysafe.herokuapp.com/Core/venues/<venue_code\>/]()<br>e.g. http://group-k-studysafe.herokuapp.com/Core/venues/CPD-LG.02/
    
 
 
