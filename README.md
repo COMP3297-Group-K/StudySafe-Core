@@ -1,8 +1,10 @@
 # StudySafe
 
-```diff
-+ Modified on April 18, 2022 for sprint 1 deliverable.
-```
+## Sprint 1 Deliverables
+
+| Description    | URL                                          |
+| -------------- | -------------------------------------------- |
+| StudySafe Core | http://group-k-studysafe.herokuapp.com/Core/ |
 
 visit http://group-k-studysafe.herokuapp.com/admin as superuser (Username: `adminse`, Password: `comp3297`)
 
