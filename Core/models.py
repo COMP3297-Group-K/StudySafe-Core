@@ -20,7 +20,7 @@ class HKUMember(models.Model):
 class ExitEntryRecord(models.Model):
     date = models.DateField() #https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.DateField
     entry_time = models.DateTimeField()  #https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.DateTimeField
-    exit_time = models.DateTimeField()
+    exit_time = models.DateTimeField(blank=True)
     Venue = models.ForeignKey(Venue, on_delete = models.CASCADE)
     HKUMember = models.ForeignKey(HKUMember, on_delete = models.CASCADE)
     def __str__(self):

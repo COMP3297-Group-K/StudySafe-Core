@@ -21,14 +21,14 @@ class View(TemplateView):
     def get_data(self):
         # self.data = []
         for infected in self.infected['infected']:
-            try:
-                hkuID, date = infected['hkuID'], infected['date']
-                path = 'http://localhost:8000/Core/' + self.head + str(hkuID) + '/' + str(date)
-                data = requests.get(url=path)
-            except:
-                self.error = 1
-            else: 
-                self.data += json.loads(data.text)
+          try:
+              hkuID, date = infected['hkuID'], infected['date']
+              path = 'http://group-k-studysafe.herokuapp.com/Core/' + self.head + str(hkuID) + '/' + str(date)
+              data = requests.get(url=path)
+          except:
+              self.error = 1
+          else: 
+              self.data += json.loads(data.text)
         self.unique()
 
     def unique(self):
@@ -111,8 +111,10 @@ class ViewInfected(TemplateView):
         for infected in self.infected['infected']:
             hkuID, date = infected['hkuID'], str(infected['date'])
             date = date[0:4] + '-' + date[4:6] + '-' + date[6:8]
-            venues = 'http://localhost:8000/Trace/venues/' + str(hkuID)
-            contacts = 'http://localhost:8000/Trace/contacts/' + str(hkuID)
+            venues = 'http://group-k-studysafe.herokuapp.com/Trace/venues/' + str(hkuID)
+            contacts = 'http://group-k-studysafe.herokuapp.com/Trace/contacts/' + str(hkuID)
+            # venues = 'http://127.0.0.1:8000/Trace/venues/' + str(hkuID)
+            # contacts = 'http://127.0.0.1:8000/Trace/contacts/' + str(hkuID)
             data += [{'hkuID':hkuID, 'date':date, 'venues':venues, 'contacts':contacts}]
         self.data = data
 
