@@ -21,15 +21,14 @@ class View(TemplateView):
     def get_data(self):
         # self.data = []
         for infected in self.infected['infected']:
-            hkuID, date = infected['hkuID'], infected['date']
-            path = 'http://group-k-studysafe.herokuapp.com/Core/' + self.head + str(hkuID) + '/' + str(date)
-            # path = 'http://127.0.0.1:8000/Core/' + self.head + str(hkuID) + '/' + str(date)
-            try:
-                data = requests.get(url=path)
-            except:
-                self.error = 1
-            else: 
-                self.data += json.loads(data.text)
+          try:
+              hkuID, date = infected['hkuID'], infected['date']
+              path = 'http://group-k-studysafe.herokuapp.com/Core/' + self.head + str(hkuID) + '/' + str(date)
+              data = requests.get(url=path)
+          except:
+              self.error = 1
+          else: 
+              self.data += json.loads(data.text)
         self.unique()
 
     def unique(self):
@@ -55,6 +54,7 @@ class ViewVenuesAll(View):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'venues/infectious-venues/'
+        self.error = 0
 
 
 class ViewContactsAll(View):
@@ -62,6 +62,7 @@ class ViewContactsAll(View):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'members/close-contacts/'
+        self.error = 0
 
 
 class ViewVenues(View):
@@ -69,18 +70,21 @@ class ViewVenues(View):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'venues/infectious-venues/'
+        self.error = 0
 
     def get_infected(self, **kwargs):
         with open('json_data.json') as json_file:
             infected = (json.load(json_file))
         hkuID = self.kwargs['hkuID']
-        flag = 0
+        flag = 1
         for member in infected['infected']:
             if member['hkuID'] == hkuID:
                 self.infected = {'infected': [{'hkuID': member['hkuID'], 'date': member['date']}]}
                 self.subject, self.date = member['hkuID'], member['date']
-                flag = 1
-        self.error = (flag == 0)
+                flag = 0
+        if flag:
+            self.error = 1
+            self.infected = {'infected':[]}
 
 
 class ViewContacts(ViewVenues):
@@ -88,6 +92,7 @@ class ViewContacts(ViewVenues):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.head = 'members/close-contacts/'
+        self.error = 0
 
 
 class ViewInfected(TemplateView):

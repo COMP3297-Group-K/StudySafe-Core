@@ -78,18 +78,24 @@
       <h1>CONTACTS</h1>
     </header>
     {% endblock %}
+    {% if error == 0 %}
     <div class="main-content">
-      <div class="info">
-        <div class="block">
-          <div class="label">Subject:</div>
-          <div class="data">{{ subject }}</div>
+      
+        <div class="info">
+          <div class="block">
+            <div class="label">Subject:</div>
+            <div class="data">{{ subject }}</div>
+          </div>
+          <div class="block">
+            <div class="label">Date of onset/diagnosis:</div>
+            <div class="data">{{ date }}</div>
+          </div>
         </div>
-        <div class="block">
-          <div class="label">Date of onset/diagnosis:</div>
-          <div class="data">{{ date }}</div>
-        </div>
-      </div>
-      {% block details %}
-      {% endblock %}
-    </div>  </body>
+    </div>  
+    {% block details %}
+    {% endblock %}
+    {% else %}
+      <div>Subject not exists. Please check it again.</div>
+    {% endif %}
+  </body>
 </html>

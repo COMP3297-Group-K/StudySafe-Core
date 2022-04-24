@@ -51,6 +51,11 @@
             font-size: 1.2em;
             font-weight: bold;
         }
+        div.error {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 0.5em;
+        }
         li.data {
             margin: 0.3em;
         }
@@ -79,25 +84,32 @@
       <h1>Infected Members</h1>
     </header>
     {% endblock %}
-    {% block content %}
-    <div class="main-content">
-        {% block details %}
-        <div class="label"> Infected members and the report date </div>
-        <div class="info">
-            {% for infected in data %}
-            <li class="data">
-                {{infected.hkuID}} &nbsp; {{infected.date}} &nbsp;
-                <a href={{infected.venues}}> Vuenues </a> &nbsp;
-                <a href={{infected.contacts}}> Contacts </a>
-            </li>
-            {% endfor %}
-        </div>
-        <div class="foot">
-            <a href="http://group-k-studysafe.herokuapp.com/Trace/venues"> Full list of venues </a> <br>
-            <a href="http://group-k-studysafe.herokuapp.com/Trace/contacts"> Full list of close contacts </a> &nbsp; 
-        </div>
+    {% if error == 0 %}
+        {% block content %}
+        <div class="main-content">
+            {% block details %}
+            <div class="label"> Infected members and the report date </div>
+            <div class="info">
+                {% for infected in data %}
+                <li class="data">
+                    {{infected.hkuID}} &nbsp; {{infected.date}} &nbsp;
+                    <a href={{infected.venues}}> Vuenues </a> &nbsp;
+                    <a href={{infected.contacts}}> Contacts </a>
+                </li>
+                {% endfor %}
+            </div>
+            <div class="foot">
+                <a href="http://localhost:8000/Trace/venues"> Full list of venues </a> <br>
+                <a href="http://localhost:8000/Trace/contacts"> Full list of close contacts </a> &nbsp; 
+            </div>
+            {% endblock %}
+        </div> 
         {% endblock %}
-    </div> 
-    {% endblock %}
+    {% else %}
+        <div class="error">Subject does not exist. Please check it again. </div>
+        <div class="foot">
+            <a href="http://group-k-studysafe.herokuapp.com/Trace/infected"> Return </a>
+        </div>
+    {% endif %}
   </body>
 </html>
