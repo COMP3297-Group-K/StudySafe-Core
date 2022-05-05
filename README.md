@@ -1,6 +1,12 @@
-# StudySafe
+# StudySafe (Group K)
 
-## Sprint 1 Deliverables
+
+| Description                      | URL                                                 |
+| -------------------------------- | --------------------------------------------------- |
+| StudySafe Core                   | http://group-k-studysafe.herokuapp.com/core/        |
+| StudySafe Core API Documentation | http://group-k-studysafe.herokuapp.com/core/apidoc  |
+| StudySafe Trace                  | http://group-k-studysafe-trace.herokuapp.com/trace/ |
+
 
 | Description                      | URL                                                |
 | -------------------------------- | -------------------------------------------------- |
@@ -30,17 +36,17 @@ General purposes APIs:
    ```shell
    http POST http://group-k-studysafe.herokuapp.com/core/ExitEntry/ hkuID=<hkuID> venue_code=<venue_code> datetime='20220401-09:00:00'
    ```
-   
+
    e.g. 
-   
+
    1. add *entry* record
-   
+
    ```shell
    http POST http://group-k-studysafe.herokuapp.com/core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
    ```
-   
+
    2. add *exit* record
-   
+
    ```shell
    http POST http://group-k-studysafe.herokuapp.com/core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
    ```
@@ -55,13 +61,13 @@ API service paths used by *StudySafe Trace*:
 
 
 
-### API documentation
+ - view all the infected HKU members: http://group-k-studysafe-trace.herokuapp.com/trace
 
 ##### Visit https://group-k-studysafe.herokuapp.com/core/apidoc for full documentation
 
-### Admin Access
+ - view all the venues visited by the infectious two days before onset/diagnosis: http://group-k-studysafe-trace.herokuapp.com/trace/venues
 
-visit http://group-k-studysafe.herokuapp.com/admin as superuser (Username: `adminse`, Password: `comp3297`)
+ - view `hkuID`'s close contacts: [http://group-k-studysafe-trace.herokuapp.com/trace/contacts/<hkuID\>]() <br>e.g. http://group-k-studysafe-trace.herokuapp.com/trace/contacts/3030012348
 
 | Repository and project root                                  | Configuration root    | App root                                     |
 | ------------------------------------------------------------ | --------------------- | -------------------------------------------- |
