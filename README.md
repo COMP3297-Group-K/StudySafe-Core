@@ -1,9 +1,9 @@
 # StudySafe (Group K)
 
-| Description                      | URL                                                |
-| -------------------------------- | -------------------------------------------------- |
-| StudySafe Core                   | http://group-k-studysafe.herokuapp.com/core/       |
-| StudySafe Core API Documentation | http://group-k-studysafe.herokuapp.com/core/apidoc |
+| Description                      | URL                                                 |
+| -------------------------------- | --------------------------------------------------- |
+| StudySafe Core                   | http://group-k-studysafe.herokuapp.com/core/        |
+| StudySafe Core API Documentation | http://group-k-studysafe.herokuapp.com/core/apidoc/ |
 
 | Repository and project root                                  | Configuration root    | App root                                     |
 | ------------------------------------------------------------ | --------------------- | -------------------------------------------- |
@@ -30,7 +30,7 @@ General purposes APIs:
  - add **exit/entry record** of `hkuID` to `venue` at `datetime` (YYYMMDD-HH:MM:SS)
 
    ```shell
-   http POST http://group-k-studysafe.herokuapp.com/core/ExitEntry/ hkuID=<hkuID> venue_code=<venue_code> datetime='20220401-09:00:00'
+   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID=<hkuID> venue_code=<venue_code> datetime='20220401-09:00:00'
    ```
 
    e.g. 
@@ -38,13 +38,13 @@ General purposes APIs:
    1. add *entry* record
 
    ```shell
-   http POST http://group-k-studysafe.herokuapp.com/core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
+   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
    ```
 
    2. add *exit* record
 
    ```shell
-   http POST http://group-k-studysafe.herokuapp.com/core/ExitEntry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
+   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
    ```
 
 API service paths used by *StudySafe Trace*:
