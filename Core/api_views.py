@@ -93,7 +93,7 @@ class ExitEntryViewSet(ModelViewSet):
         date = date_time.date()
         member_id = data['hkuID']
         venue_name = data['venue_code']
-        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = F('entry_time'))
+        obj = ExitEntryRecord.objects.filter(HKUMember__hkuID = member_id, date = date, exit_time = None)
         if obj:
             for i in obj:
                 i.exit_time = date_time
