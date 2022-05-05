@@ -1,17 +1,13 @@
 # StudySafe (Group K)
 
-
-| Description                      | URL                                                 |
-| -------------------------------- | --------------------------------------------------- |
-| StudySafe Core                   | http://group-k-studysafe.herokuapp.com/core/        |
-| StudySafe Core API Documentation | http://group-k-studysafe.herokuapp.com/core/apidoc  |
-| StudySafe Trace                  | http://group-k-studysafe-trace.herokuapp.com/trace/ |
-
-
 | Description                      | URL                                                |
 | -------------------------------- | -------------------------------------------------- |
 | StudySafe Core                   | http://group-k-studysafe.herokuapp.com/core/       |
 | StudySafe Core API Documentation | http://group-k-studysafe.herokuapp.com/core/apidoc |
+
+| Repository and project root                                  | Configuration root    | App root                                     |
+| ------------------------------------------------------------ | --------------------- | -------------------------------------------- |
+| [StudySafe-Core](https://github.com/COMP3297-Group-K/StudySafe-Core) | StudySafe-Core/config | StudySafe-Core/users<br/>StudySafe-Core/Core |
 
 ### StudySafe Core Example Usage
 
@@ -58,17 +54,15 @@ API service paths used by *StudySafe Trace*:
  - retrieve the **venues** visited by `hkuID` whose onset/diagnose date is `date` (YYYYMMDD): 
 
    [http://group-k-studysafe.herokuapp.com/core/venues/infectious-venues/<hkuID\>/<date\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/venues/infectious-venues/3030012345/20220411/
+   
+   
+
+### API documentation
+
+Visit https://group-k-studysafe.herokuapp.com/core/apidoc for full documentation
 
 
 
- - view all the infected HKU members: http://group-k-studysafe-trace.herokuapp.com/trace
+### Admin Access
 
-##### Visit https://group-k-studysafe.herokuapp.com/core/apidoc for full documentation
-
- - view all the venues visited by the infectious two days before onset/diagnosis: http://group-k-studysafe-trace.herokuapp.com/trace/venues
-
- - view `hkuID`'s close contacts: [http://group-k-studysafe-trace.herokuapp.com/trace/contacts/<hkuID\>]() <br>e.g. http://group-k-studysafe-trace.herokuapp.com/trace/contacts/3030012348
-
-| Repository and project root                                  | Configuration root    | App root                                     |
-| ------------------------------------------------------------ | --------------------- | -------------------------------------------- |
-| [StudySafe-Core](https://github.com/COMP3297-Group-K/StudySafe-Core) | StudySafe-Core/config | StudySafe-Core/users<br/>StudySafe-Core/Core |
+visit http://group-k-studysafe.herokuapp.com/admin as superuser (Username: `adminse`, Password: `comp3297`)
