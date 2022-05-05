@@ -15,7 +15,7 @@ General purposes APIs:
 
  - list all the **campus venues**: http://group-k-studysafe.herokuapp.com/core/venues/
 
- - retrieve the info on a campus venue by `venue_code`: [http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/]()<br>e.g. http://group-k-studysafe.herokuapp.com/core/venues/CPD-LG.02/
+ - retrieve the info on a campus venue by `venue_code`: [http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/]()<br>e.g. http://group-k-studysafe.herokuapp.com/core/venues/KK101/
    
 
 
@@ -23,7 +23,7 @@ General purposes APIs:
    
 
 
- - retrieve the info about a HKU memeber by `hkuID`: [http://group-k-studysafe.herokuapp.com/core/members/<hkuID\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/members/3030012344/
+ - retrieve the info about a HKU memeber by `hkuID`: [http://group-k-studysafe.herokuapp.com/core/members/<hkuID\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/members/3025704501/
 
  - list all the **exit/entry record**: http://group-k-studysafe.herokuapp.com/core/exitentry/
 
@@ -38,22 +38,22 @@ General purposes APIs:
    1. add *entry* record
 
    ```shell
-   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
+   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3025704501' venue_code='CPD-2.58' datetime='20220502-15:32:00'
    ```
 
    2. add *exit* record
 
    ```shell
-   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3030012345' venue_code='CPD-LG.02' datetime='20220401-09:00:00'
+   http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3025704501' venue_code='CPD-2.58' datetime='20220502-16:25:00'
    ```
 
 API service paths used by *StudySafe Trace*:
 
- - retrieve the **close contacts** of `hkuID` whose onset/diagnose date is `date` (YYYYMMDD): [http://group-k-studysafe.herokuapp.com/core/members/close-contacts/<hkuID\>/<date\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/members/close-contacts/3030012345/20220411/
+ - retrieve the **close contacts** of `hkuID` whose onset/diagnose date is `date` (YYYYMMDD): [http://group-k-studysafe.herokuapp.com/core/members/close-contacts/<hkuID\>/<date\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/members/close-contacts/3025704501/20220504/
 
  - retrieve the **venues** visited by `hkuID` whose onset/diagnose date is `date` (YYYYMMDD): 
 
-   [http://group-k-studysafe.herokuapp.com/core/venues/infectious-venues/<hkuID\>/<date\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/venues/infectious-venues/3030012345/20220411/
+   [http://group-k-studysafe.herokuapp.com/core/venues/infectious-venues/<hkuID\>/<date\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/venues/infectious-venues/3025704501/20220504/
    
    
 
