@@ -13,19 +13,36 @@
 
 General purposes APIs:
 
- - list all the **campus venues**: http://group-k-studysafe.herokuapp.com/core/venues/
+#### 1. Campus Venues
 
- - retrieve the info on a campus venue by `venue_code`: [http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/]()<br>e.g. http://group-k-studysafe.herokuapp.com/core/venues/KK101/
-   
+| Method                                        | URL                                                          |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| list all the venues                           | http://group-k-studysafe.herokuapp.com/core/venues/          |
+| retrieve venue by `venue_code`                | http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/<br/>e.g. http://group-k-studysafe.herokuapp.com/core/venues/KK101/ |
+|                                               | **Command Line**                                             |
+| update venue info<br> **(CML ONLY)**          | http PUT http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/ venue_code=<venue_code> location=<new_location> type=<new_type> capacity=<new_capacity> <br> e.g. `http PUT http://group-k-studysafe.herokuapp.com/core/venues/KK101/ venue_code=KK101 location=newloc type=newtype capacity=20` |
+| partial update venue info<br/> **(CML ONLY)** | http PATCH http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/ location=<new_location> or type=<new_type> or capacity=<new_capacity> <br/> e.g. `http PATCH http://group-k-studysafe.herokuapp.com/core/venues/KK101/ capacity=20` |
+| create venue<br/> **(CML ONLY)**              | http POST  http://group-k-studysafe.herokuapp.com/core/venues/ venue_code=<venue_code> location=<new_location> type=<new_type> capacity=<new_capacity> <br/> e.g. `http POST http://group-k-studysafe.herokuapp.com/core/venues/ venue_code=KK102 location=K.K.\ Leung\ Building,\ Main\ Campus type=LT capacity=100` |
+| delete venue<br/> **(CML ONLY)**              | http DELETE  http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/  <br/> e.g. `http DELETE http://group-k-studysafe.herokuapp.com/core/venues/KK102/` |
+| list all the venues                           | `http GET http://group-k-studysafe.herokuapp.com/core/venues/` |
+| retrieve venue by `venue_code`                | http GET http://group-k-studysafe.herokuapp.com/core/venues/<venue_code\>/<br/>e.g. `http GET http://group-k-studysafe.herokuapp.com/core/venues/KK101/` |
 
+#### 2. HKU Members
 
- - list all the **HKU members**: http://group-k-studysafe.herokuapp.com/core/members/
-   
+| Method                                        | URL                                                          |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| list all the HKU members                      | http://group-k-studysafe.herokuapp.com/core/members/         |
+| retrieve HKU member by `hkuID`                | [http://group-k-studysafe.herokuapp.com/core/members/<hkuID\>/]() <br/>e.g. http://group-k-studysafe.herokuapp.com/core/members/3025704501/ |
+|                                               | **Command Line**                                             |
+| update venue info<br> **(CML ONLY)**          | http PUT [http://group-k-studysafe.herokuapp.com/core/members/<hkuID\>/]() hkuID=<hku_ID> name=<name> <br> e.g. ` http PUT http://group-k-studysafe.herokuapp.com/core/members/29705/ hkuID=29705 name=Cheung,\ Ka\ Fai ` |
+| partial update venue info<br/> **(CML ONLY)** | http PATCH [http://group-k-studysafe.herokuapp.com/core/members/<hkuID\>/]() name=<name> <br/> e.g. `http PATCH http://group-k-studysafe.herokuapp.com/core/members/29705/ name=Cheung,\ Ka\ Fai` |
+| create venue<br/> **(CML ONLY)**              | http POST [http://group-k-studysafe.herokuapp.com/core/members/]() hkuID=<hku_ID> name=<name> <br/> e.g. `http POST http://group-k-studysafe.herokuapp.com/core/members/ hkuID=123456 name=Random\ Guy` |
+| delete venue<br/> **(CML ONLY)**              | http DELETE  [http://group-k-studysafe.herokuapp.com/core/members/]()<hkuID\>/  <br/> e.g. `http DELETE http://group-k-studysafe.herokuapp.com/core/members/123456/` |
+| list all the venues                           | `http GET http://group-k-studysafe.herokuapp.com/core/members/` |
+| retrieve venue by `venue_code`                | http GET [http://group-k-studysafe.herokuapp.com/core/members/]() <hkuID\>/ <br/>e.g. `http GET http://group-k-studysafe.herokuapp.com/core/members/29705/` |
 
+#### 3. Exit Entry Record
 
- - retrieve the info about a HKU memeber by `hkuID`: [http://group-k-studysafe.herokuapp.com/core/members/<hkuID\>/]() <br>e.g. http://group-k-studysafe.herokuapp.com/core/members/3025704501/
-
- - list all the **exit/entry record**: http://group-k-studysafe.herokuapp.com/core/exitentry/
 
  - add **exit/entry record** of `hkuID` to `venue` at `datetime` (YYYMMDD-HH:MM:SS)
 
@@ -46,6 +63,15 @@ General purposes APIs:
    ```shell
    http POST http://group-k-studysafe.herokuapp.com/core/exitentry/ hkuID='3025704501' venue_code='CPD-2.58' datetime='20220502-16:25:00'
    ```
+
+- delete **exit/entry record**:
+
+  ```shell
+  http DELETE http://group-k-studysafe.herokuapp.com/core/exitentry/id/
+  ```
+
+
+
 
 API service paths used by *StudySafe Trace*:
 
